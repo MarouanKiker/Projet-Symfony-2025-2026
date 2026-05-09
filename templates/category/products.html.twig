@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits - {{ category.name }}{% endblock %}
+
+{% block body %}
+<h1 class="mb-4">Produits dans la catégorie : {{ category.name }}</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products %}
+        <div class="col">
+            <div class="card h-100">
+                {% if product.image %}
+                    <img src="{{ asset(product.image) }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Placeholder">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text fw-bold text-success">{{ product.price }} €</p>
+                    <a href="{{ path('app_product_details', {id: product.id}) }}" class="btn btn-outline-primary">Voir Détails</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12">
+            <p>Aucun produit dans cette catégorie.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
